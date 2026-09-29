@@ -8,6 +8,8 @@ const loginMessage = document.getElementById("login-message");
 
 
 // Demo accounts
+// In the real system these will come from
+// the backend/database.
 const demoUsers = [
     {
         email: "public@geoportal.mw",
@@ -40,31 +42,26 @@ loginForm.addEventListener("submit", function(event) {
     const password =
         document.getElementById("password").value;
 
-    const role =
-        document.getElementById("role").value;
 
-
-    // Find matching account
+    // Find the account using email and password
     const user = demoUsers.find(function(account) {
 
         return (
             account.email === email &&
-            account.password === password &&
-            account.role === role
+            account.password === password
         );
 
     });
 
 
-    // Check login
+    // Login successful
     if (user) {
 
-        // Save login session
+        // Save the authenticated user
         localStorage.setItem(
             "geoportalUser",
             JSON.stringify(user)
         );
-
 
         loginMessage.textContent =
             "Login successful. Redirecting...";
@@ -73,7 +70,7 @@ loginForm.addEventListener("submit", function(event) {
             "login-message success";
 
 
-        // Redirect after login
+        // Redirect to dashboard
         setTimeout(function() {
 
             window.location.href = "dashboard.html";
@@ -83,8 +80,9 @@ loginForm.addEventListener("submit", function(event) {
 
     } else {
 
+        // Login failed
         loginMessage.textContent =
-            "Invalid email, password, or account type.";
+            "Invalid email or password.";
 
         loginMessage.className =
             "login-message error";
