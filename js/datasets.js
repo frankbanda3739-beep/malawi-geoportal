@@ -8,14 +8,9 @@
 const searchInput = document.getElementById("dataset-search");
 const departmentFilter = document.getElementById("department-filter");
 const accessFilter = document.getElementById("access-filter");
-
-
-// Get all dataset cards
 const datasetCards = document.querySelectorAll(".dataset-card");
-
-
-// Get the dataset count display
 const datasetCount = document.getElementById("dataset-count");
+const searchButton = document.getElementById("search-button");
 
 
 // Function to filter datasets
@@ -38,23 +33,19 @@ function filterDatasets() {
         // Get all text inside the card
         const cardText = card.textContent.toLowerCase();
 
-
         // Check search
         const matchesSearch =
             cardText.includes(searchText);
-
 
         // Check department
         const matchesDepartment =
             selectedDepartment === "all" ||
             cardText.includes(selectedDepartment);
 
-
         // Check access level
         const matchesAccess =
             selectedAccess === "all" ||
             cardText.includes(selectedAccess);
-
 
         // Decide whether to show the card
         if (
@@ -64,7 +55,6 @@ function filterDatasets() {
         ) {
 
             card.style.display = "block";
-
             visibleCount++;
 
         } else {
@@ -83,22 +73,8 @@ function filterDatasets() {
 }
 
 
-// Run filtering when the user types
-searchInput.addEventListener(
-    "input",
-    filterDatasets
-);
-
-
-// Run filtering when department changes
-departmentFilter.addEventListener(
-    "change",
-    filterDatasets
-);
-
-
-// Run filtering when access level changes
-accessFilter.addEventListener(
-    "change",
-    filterDatasets
-);
+// Search and filter events
+searchInput.addEventListener("input", filterDatasets);
+departmentFilter.addEventListener("change", filterDatasets);
+accessFilter.addEventListener("change", filterDatasets);
+searchButton.addEventListener("click", filterDatasets);
